@@ -1,5 +1,13 @@
 local wezterm = require 'wezterm';
 
+-- Check the operating system
+local os = wezterm.target_triple:match("(.-)-")
+
+-- Set the default program based on the OS
+if os == "windows" then
+  wezterm.config.default_prog = {"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"}
+end
+
 return {
   window_decorations = "RESIZE",
   tab_bar_at_bottom = true,
