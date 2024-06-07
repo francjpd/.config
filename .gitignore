@@ -1,2 +1,5 @@
 packer_compiled.lua
+scoop
+simple-update-notifier
+configstore
 .DS_Store
