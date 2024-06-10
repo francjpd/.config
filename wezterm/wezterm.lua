@@ -12,6 +12,7 @@ end
 return {
 	window_decorations = "RESIZE",
 	tab_bar_at_bottom = true,
+	set_environment_variables = { XDG_CONFIG_HOME  = "C:\\Users\\franc\\.config" },
 	color_scheme = "Custom",
 	default_prog = default_prog,
 	colors = {
