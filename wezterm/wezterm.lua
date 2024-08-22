@@ -12,7 +12,7 @@ end
 return {
 	window_decorations = "RESIZE",
 	tab_bar_at_bottom = true,
-	set_environment_variables = { XDG_CONFIG_HOME  = "C:\\Users\\franc\\.config" },
+	set_environment_variables = { XDG_CONFIG_HOME = "C:\\Users\\franc\\.config" },
 	color_scheme = "Custom",
 	default_prog = default_prog,
 	colors = {
@@ -24,7 +24,7 @@ return {
 	},
 	-- This sets the background image with 80% opacity
 	window_background_image = wezterm.home_dir .. "/theme/garaje-transparent.png",
-	window_background_opacity = 0.97,
+	-- window_background_opacity = 0.99,
 	-- Specify the font here
 	font = wezterm.font("BlexMono Nerd Font"),
 	keys = {
