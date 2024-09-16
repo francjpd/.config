@@ -26,6 +26,24 @@ return {
 			},
 		})
 
+		vim.api.nvim_create_user_command("formatDisable", function(args)
+			if args.bang then
+				vim.b.disable_autoformat = true
+			else
+				vim.g.disable_autoformat = true
+			end
+		end, {
+			desc = "Disable autoformat-on-save",
+			bang = true,
+		})
+
+		vim.api.nvim_create_user_command("formatEnable", function()
+			vim.b.disable_autoformat = false
+			vim.g.disable_autoformat = false
+		end, {
+			desc = "Re-enable autoformat-on-save",
+		})
+
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
 				lsp_fallback = true,
