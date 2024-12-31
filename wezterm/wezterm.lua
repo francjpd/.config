@@ -4,7 +4,7 @@ local helper = require("helper")
 local default_prog
 
 if helper.getOS() == "Windows" then
-	default_prog = { "C:\\Program Files\\PowerShell\\7\\pwsh.exe" }
+	default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
 else
 	default_prog = { "/bin/zsh", "--login" }
 end
