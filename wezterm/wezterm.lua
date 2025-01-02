@@ -26,7 +26,7 @@ return {
 	window_background_image = wezterm.home_dir .. "/theme/garaje-transparent.png",
 	-- window_background_opacity = 0.99,
 	-- Specify the font here
-	font = wezterm.font("BlexMono Nerd Font"),
+	font = wezterm.font_with_fallback({ "BlexMono Nerd Font", "" }),
 	keys = {
 		-- This will split the current pane vertically with Ctrl+Shift+V
 		{
