@@ -28,17 +28,35 @@ return {
 	-- Specify the font here
 	font = wezterm.font_with_fallback({ "BlexMono Nerd Font", "" }),
 	keys = {
-		-- This will split the current pane vertically with Ctrl+Shift+V
 		{
-			key = "%", -- Uppercase 'V' indicates that Shift is being held
-			mods = "CTRL|SHIFT",
+			key = "v",
+			mods = "ALT|SHIFT",
 			action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
 		},
-		-- This will split the current pane horizontally with Ctrl+Shift+V
 		{
-			key = "$", -- Uppercase 'V' indicates that Shift is being held
-			mods = "CTRL|SHIFT",
+			key = "h",
+			mods = "ALT|SHIFT",
 			action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+		},
+		{
+			key = "=",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
+		{
+			key = "_",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
+		{
+			key = "-",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
+		},
+		{
+			key = "+",
+			mods = "CTRL",
+			action = wezterm.action.DisableDefaultAssignment,
 		},
 	},
 }
