@@ -12,9 +12,16 @@ return {
 			{
 				"<leader>c",
 				function()
-					CodeCompanionChat()
+					vim.cmd("CodeCompanionChat Toggle")
 				end,
 				desc = "Code Companion chat",
+			},
+			{
+				"<leader>cp",
+				function()
+					vim.cmd("CodeCompanionActions")
+				end,
+				desc = "Code companion actions",
 			},
 		},
 		config = function()
@@ -23,6 +30,13 @@ return {
 					log_level = "DEBUG",
 				},
 				adapters = {
+					openai = function()
+						return require("codecompanion.adapters").extend("openai", {
+							env = {
+								api_key = "",
+							},
+						})
+					end,
 					codellama = function()
 						return require("codecompanion.adapters").extend("ollama", {
 							schema = {
@@ -34,9 +48,9 @@ return {
 					end,
 				},
 				strategies = {
-					chat = { adapter = "codellama" },
-					inline = { adapter = "codellama" },
-					agent = { adapter = "codellama" },
+					chat = { adapter = "openai" },
+					inline = { adapter = "openai" },
+					agent = { adapter = "openai" },
 				},
 			})
 		end,
