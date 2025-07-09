@@ -26,10 +26,44 @@ return {
 		},
 		config = function()
 			require("codecompanion").setup({
-				opts = {
-					log_level = "DEBUG",
-				},
 				adapters = {
+					perplexity = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							env = {
+								url = "https://api.perplexity.ai",
+								api_key = vim.env.PERPLEXITY_API_KEY,
+								chat_url = "/chat/completions",
+								models_endpoint = "/models",
+							},
+							schema = {
+								model = {
+									default = "sonar-pro",
+								},
+								temperature = {
+									order = 2,
+									mapping = "parameters",
+									type = "number",
+									optional = true,
+									default = 0.7,
+									desc = "Controls randomness in responses",
+									validate = function(n)
+										return n >= 0 and n <= 2, "Must be between 0 and 2"
+									end,
+								},
+								max_tokens = {
+									order = 3,
+									mapping = "parameters",
+									type = "integer",
+									optional = true,
+									default = 1000,
+									desc = "Maximum number of tokens to generate",
+									validate = function(n)
+										return n > 0, "Must be greater than 0"
+									end,
+								},
+							},
+						})
+					end,
 					openai = function()
 						return require("codecompanion.adapters").extend("openai", {
 							env = {
@@ -48,9 +82,9 @@ return {
 					end,
 				},
 				strategies = {
-					chat = { adapter = "openai" },
-					inline = { adapter = "openai" },
-					agent = { adapter = "openai" },
+					chat = { adapter = "perplexity" },
+					inline = { adapter = "perplexity" },
+					agent = { adapter = "perplexity" },
 				},
 			})
 		end,

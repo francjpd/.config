@@ -1,0 +1,29 @@
+general:
+  # Commands to run when the WM has started (e.g. to run a script or launch
+  # another application).
+  startup_commands: []
+
+  # Commands to run just before the WM is shutdown.
+  shutdown_commands: []
+
+  # Commands to run after the WM config has reloaded.
+  config_reload_commands: []
+
+  # Whether to automatically focus windows underneath the cursor.
+  focus_follows_cursor: false
+
+  # Whether to switch back and forth between the previously focused
+  # workspace when focusing the current workspace.
+  toggle_workspace_on_refocus: false
+
+  cursor_jump:
+    # Whether to automatically move the cursor on the specified trigger.
+    enabled: true
+
+    # Trigger for cursor jump:
+    # - 'monitor_focus': Jump when focus changes between monitors.
+    # - 'window_focus': Jump when focus changes between windows.
+    trigger: "monitor_focus"
+gaps:
+  inner_gap: "10px"
+  outer_gap : "10px"

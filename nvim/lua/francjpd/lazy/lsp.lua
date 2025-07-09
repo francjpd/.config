@@ -23,6 +23,81 @@ return {
 			cmp_lsp.default_capabilities()
 		)
 
+		local on_attach = function(client, bufnr)
+			local opts = { buffer = bufnr, remap = false }
+			-- Code actions (this is what you want!)
+			vim.keymap.set(
+				"n",
+				"<leader>ca",
+				vim.lsp.buf.code_action,
+				vim.tbl_extend("force", opts, { desc = "LSP: Code Actions (imports, fixes, etc.)" })
+			)
+
+			-- Navigation
+			vim.keymap.set(
+				"n",
+				"gd",
+				vim.lsp.buf.definition,
+				vim.tbl_extend("force", opts, { desc = "LSP: Go to Definition" })
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>vrr",
+				vim.lsp.buf.references,
+				vim.tbl_extend("force", opts, { desc = "LSP: Show References" })
+			)
+
+			-- Documentation
+			vim.keymap.set(
+				"n",
+				"K",
+				vim.lsp.buf.hover,
+				vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" })
+			)
+			vim.keymap.set(
+				"i",
+				"<C-h>",
+				vim.lsp.buf.signature_help,
+				vim.tbl_extend("force", opts, { desc = "LSP: Signature Help" })
+			)
+
+			-- Workspace
+			vim.keymap.set(
+				"n",
+				"<leader>vws",
+				vim.lsp.buf.workspace_symbol,
+				vim.tbl_extend("force", opts, { desc = "LSP: Workspace Symbols" })
+			)
+
+			-- Refactoring
+			vim.keymap.set(
+				"n",
+				"<leader>vrn",
+				vim.lsp.buf.rename,
+				vim.tbl_extend("force", opts, { desc = "LSP: Rename Symbol" })
+			)
+
+			-- Diagnostics
+			vim.keymap.set(
+				"n",
+				"<leader>vd",
+				vim.diagnostic.open_float,
+				vim.tbl_extend("force", opts, { desc = "LSP: Show Diagnostic" })
+			)
+			vim.keymap.set(
+				"n",
+				"[d",
+				vim.diagnostic.goto_prev,
+				vim.tbl_extend("force", opts, { desc = "LSP: Previous Diagnostic" })
+			)
+			vim.keymap.set(
+				"n",
+				"]d",
+				vim.diagnostic.goto_next,
+				vim.tbl_extend("force", opts, { desc = "LSP: Next Diagnostic" })
+			)
+		end
+
 		require("fidget").setup({})
 		require("mason").setup()
 		require("mason-lspconfig").setup({
@@ -34,6 +109,7 @@ return {
 				function(server_name) -- default handler (optional)
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
+						on_attach = on_attach,
 					})
 				end,
 
@@ -41,6 +117,7 @@ return {
 					local lspconfig = require("lspconfig")
 					lspconfig.lua_ls.setup({
 						capabilities = capabilities,
+						on_attach = on_attach,
 						settings = {
 							Lua = {
 								runtime = { version = "Lua 5.1" },
