@@ -15,7 +15,8 @@
       "pulseaudio",
       "cpu",
       "battery",
-      "poweroff"
+      "backlight",
+      "custom/power",
     ],
     "hyprland/workspaces": {
       "on-click": "activate",
@@ -44,12 +45,21 @@
     "cpu": {
       "interval": 5,
       "format": "󰍛",
-      "on-click": "alacritty -e btop"
+      "on-click": "ghostty -e zsh -c 'btop'"
     },
     "clock": {
       "format": "{:%A %H:%M}",
       "format-alt": "{:%d %B W%V %Y}",
       "tooltip": false
+    },
+    "backlight": {
+     "device": "intel_backlight",  // Replace with your device (check with `brightnessctl --list`)
+     "format": "{percent}% {icon}",
+     "format-icons": ["🌑", "🌕"],  // Custom icons for low/high brightness
+     "on-scroll-up": "brightnessctl set +5%",  // Increase by 5% on scroll up
+     "on-scroll-down": "brightnessctl set 5%-",  // Decrease by 5% on scroll down
+     "scroll-step": 5.0,  // Adjust the increment size
+     "on-click": "ghostty -e zsh -c 'brightnessctl; read'"  // Command for popup on left-click
     },
     "network": {
       "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
@@ -62,7 +72,7 @@
       "tooltip-format-disconnected": "Disconnected",
       "interval": 3,
       "nospacing": 1,
-      "on-click": "alacritty --class=Impala -e impala"
+      "on-click": "ghostty --class=Impala -e zsh -c 'impala'"
     },
     "battery": {
       "format": "{capacity}% {icon}",
@@ -102,16 +112,16 @@
       "on-click-right": "pamixer -t",
       "ignored-sinks": ["Easy Effects Sink"]
     },
-    "poweroff": {
-    "format": "⏻ ",
-    "tooltip": false,
-    "menu": "on-click",
-    "menu-actions": {
+    "custom/power": {
+      "format": "⏻ ",
+      "tooltip": true,
+      "menu": "on-click",
+      "menu-file": "~/.config/waybar/power_menu.xml",
+      "menu-actions": {
         "shutdown": "shutdown",
         "reboot": "reboot",
         "suspend": "systemctl suspend",
         "hibernate": "systemctl hibernate"
-    }
-}
-
+      }
+   }
 }

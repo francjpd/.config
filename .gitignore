@@ -1,4 +1,11 @@
 BraveSoftware
+Android Open Source Project
+libreoffice
+pavucontrol.ini
+rofi
+.android
+Code - OSS
+Google
 configstore
 dconf
 fontforge
@@ -9,7 +16,6 @@ gtk-4.0
 kde.org
 session
 systemd
-waybar
 wezterm
 xsettingsd
 dolphinrc
