@@ -1,6 +1,8 @@
+local hover_devdocs = require("francjpd.devdocs")
+
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>fv", vim.cmd.Ex, { desc = "Open the file explorer" })
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Replace selection with default register without overwriting it" })
+vim.keymap.set("x", "<leader>p", [[""_dP]], { desc = "Replace selection with default register without overwriting it" })
 
 -- moves selected lines to up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -19,5 +21,12 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous item in quic
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next item in location list" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous item in location list" })
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  { desc = "Substitute word under cursor" })
+vim.keymap.set(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Substitute word under cursor" }
+)
+
+-- Set devdocs mapping with a higher priority to override LSP
+vim.keymap.set("n", "<leader>d", hover_devdocs, { desc = "LSP hover + DevDocs" })

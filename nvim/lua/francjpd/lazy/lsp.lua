@@ -48,12 +48,26 @@ return {
 			)
 
 			-- Documentation
-			vim.keymap.set(
-				"n",
-				"K",
-				vim.lsp.buf.hover,
-				vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" })
-			)
+			-- Only set K mapping if not already mapped to devdocs
+			local filetypes_to_override = { "typescriptreact", "typescript", "javascript", "javascriptreact" }
+			local buf_ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+			local use_devdocs = false
+			for _, ft in ipairs(filetypes_to_override) do
+				if buf_ft == ft then
+					use_devdocs = true
+					break
+				end
+			end
+
+			if not use_devdocs then
+				vim.keymap.set(
+					"n",
+					"K",
+					vim.lsp.buf.hover,
+					vim.tbl_extend("force", opts, { desc = "LSP: Hover Documentation" })
+				)
+			end
+
 			vim.keymap.set(
 				"i",
 				"<C-h>",
