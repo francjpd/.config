@@ -1,7 +1,7 @@
 return {
-	"neovim/nvim-lspconfig",
+	-- Remove the external lspconfig plugin since we're using native vim.lsp
+	"williamboman/mason.nvim",
 	dependencies = {
-		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
@@ -114,35 +114,51 @@ return {
 
 		require("fidget").setup({})
 		require("mason").setup()
+		
+		-- Setup mason-lspconfig without the deprecated handlers
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"lua_ls",
 				"rust_analyzer",
 			},
-			handlers = {
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-						on_attach = on_attach,
-					})
-				end,
-
-				["lua_ls"] = function()
-					local lspconfig = require("lspconfig")
-					lspconfig.lua_ls.setup({
-						capabilities = capabilities,
-						on_attach = on_attach,
-						settings = {
-							Lua = {
-								runtime = { version = "Lua 5.1" },
-								diagnostics = {
-									globals = { "vim", "it", "describe", "before_each", "after_each" },
-								},
-							},
-						},
-					})
-				end,
+		})
+		
+		-- Use native vim.lsp instead of requiring external lspconfig plugin
+		-- For lua_ls with custom config
+		local runtime_path = vim.split(package.path, ';')
+		table.insert(runtime_path, "lua/?.lua")
+		table.insert(runtime_path, "lua/?/init.lua")
+		
+		vim.lsp.start({
+			name = 'lua_ls',
+			cmd = { 'lua-language-server' },
+			root_dir = vim.loop.cwd,
+			capabilities = capabilities,
+			on_attach = on_attach,
+			settings = {
+				Lua = {
+					runtime = {
+						version = 'LuaJIT',
+						path = runtime_path,
+					},
+					diagnostics = {
+						globals = { 'vim', 'it', 'describe', 'before_each', 'after_each' },
+					},
+					workspace = {
+						library = vim.api.nvim_get_runtime_file('', true),
+					},
+					telemetry = { enable = false },
+				},
 			},
+		})
+		
+		-- For rust_analyzer
+		vim.lsp.start({
+			name = 'rust_analyzer',
+			cmd = { 'rust-analyzer' },
+			root_dir = vim.loop.cwd,
+			capabilities = capabilities,
+			on_attach = on_attach,
 		})
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }

@@ -27,8 +27,14 @@ if [ -z "$IMAGE1" ] || [ -z "$IMAGE2" ]; then
   exit 1
 fi
 
-# Wait briefly to ensure hyprpaper is fully loaded
-sleep 1
+# Wait for hyprpaper to be ready by checking if the IPC is available
+for i in {1..10}; do
+  if hyprctl hyprpaper monitors | grep -q "Monitor"; then
+    echo "Hyprpaper is ready"
+    break
+  fi
+  sleep 0.5
+done
 
 # Preload and set wallpapers
 hyprctl hyprpaper preload "$IMAGE1"
