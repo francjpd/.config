@@ -53,13 +53,10 @@
       "tooltip": false
     },
     "backlight": {
-     "device": "intel_backlight",  // Replace with your device (check with `brightnessctl --list`)
      "format": "{percent}% {icon}",
-     "format-icons": ["🌑", "🌕"],  // Custom icons for low/high brightness
-     "on-scroll-up": "brightnessctl set +5%",  // Increase by 5% on scroll up
-     "on-scroll-down": "brightnessctl set 5%-",  // Decrease by 5% on scroll down
-     "scroll-step": 5.0,  // Adjust the increment size
-     "on-click": "ghostty -e zsh -c 'brightnessctl; read'"  // Command for popup on left-click
+     "format-icons": ["🌑", "🌕"],
+     "on-scroll-up": "./backlight.sh up",
+     "on-scroll-down": "./backlight.sh down",
     },
     "network": {
       "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
