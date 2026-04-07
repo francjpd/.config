@@ -55,8 +55,8 @@
     "backlight": {
      "format": "{percent}% {icon}",
      "format-icons": ["🌑", "🌕"],
-     "on-scroll-up": "./backlight.sh up",
-     "on-scroll-down": "./backlight.sh down",
+     "on-scroll-up": "~/.config/waybar/backlight.sh up",
+     "on-scroll-down": "~/.config/waybar/backlight.sh down",
     },
     "network": {
       "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],

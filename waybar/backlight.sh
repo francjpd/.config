@@ -4,7 +4,7 @@ MAX=80
 INTERVAL=5
 
 dp1_name=intel_backlight
-dp2_name=card1-eDP-2-backlight
+dp2_name=card0-eDP-2-backlight
 
 # Calculate percentages as different monitors might have different max
 dp1=$(brightnessctl -d $dp1_name get)

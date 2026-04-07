@@ -1,0 +1,66 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+local map = vim.keymap.set
+
+-- oil Explorer actions
+map("n", "<Leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+map("n", "<leader>-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+map("n", "g?", function()
+  require("oil").explorer.actions.show_help()
+end)
+
+map("n", "<CR>", function()
+  require("oil").explorer.actions.select()
+end)
+
+map("n", "<C-s>", function()
+  require("oil").explorer.actions.select({ vertical = true })
+end)
+
+map("n", "<C-h>", function()
+  require("oil").explorer.actions.select({ horizontal = true })
+end)
+
+map("n", "<C-t>", function()
+  require("oil").explorer.actions.select({ tab = true })
+end)
+
+map("n", "<C-p>", function()
+  require("oil").explorer.actions.preview()
+end)
+map("n", "<C-c>", function()
+  require("oil").explorer.actions.close()
+end)
+
+map("n", "<C-l>", function()
+  require("oil").explorer.actions.refresh()
+end)
+
+map("n", "-", function()
+  require("oil").explorer.actions.parent()
+end)
+map("n", "_", function()
+  require("oil").explorer.actions.open_cwd()
+end)
+map("n", "`", function()
+  require("oil").explorer.actions.cd()
+end)
+
+map("n", "~", function()
+  require("oil").explorer.actions.cd({ scope = "tab" })
+end)
+
+map("n", "gs", function()
+  require("oil").explorer.actions.change_sort()
+end)
+map("n", "gx", function()
+  require("oil").explorer.actions.open_external()
+end)
+
+map("n", "g.", function()
+  require("oil").explorer.actions.toggle_hidden()
+end)
+map("n", "g\\", function()
+  require("oil").explorer.actions.toggle_trash()
+end)
