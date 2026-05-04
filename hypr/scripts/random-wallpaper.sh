@@ -28,12 +28,21 @@ if [ -z "$IMAGE1" ] || [ -z "$IMAGE2" ]; then
 fi
 
 # Wait for hyprpaper to be ready by checking if the IPC is available
-for i in {1..10}; do
-  if hyprctl hyprpaper monitors | grep -q "Monitor"; then
-    echo "Hyprpaper is ready"
-    break
-  fi
-  sleep 0.5
+# for i in {1..10}; do
+#   if hyprctl hyprpaper monitors | grep -q "Monitor"; then
+#     echo "Hyprpaper is ready"
+#     break
+#   fi
+#   sleep 0.1
+# done
+
+#wait for hyprpaper process to exist
+while ! pidof hyprpaper >/dev/null 2>&1; do
+  sleep 0.01
+done
+
+until hyprctl hyprpaper monitors 2>/dev/null | grep -q "Monitor"; do
+  sleep 0.01
 done
 
 # Preload and set wallpapers
