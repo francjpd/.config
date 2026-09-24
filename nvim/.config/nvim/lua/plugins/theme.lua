@@ -1,1 +1,1 @@
-/home/francjpd/.config/omarchy/current/theme/neovim.lua
+/home/francjpd/.local/state/omarchy/current/theme/neovim.lua
